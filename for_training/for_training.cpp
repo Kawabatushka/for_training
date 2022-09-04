@@ -12,13 +12,17 @@ public:
 		this->high = _high;
 	}
 
-
+	void Speak();
 
 private:
 	string name;
 	int weight, high;
 };
 
+void Human::Speak()
+{
+	cout << "Bla bla bla\n";
+}
 
 int main()
 {
