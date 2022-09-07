@@ -1,47 +1,50 @@
 ﻿#include<iostream>
 #include <string>
-#include "MyClass.h"
-#include "Human.h"
+#include <stdexcept>
 
 using namespace std;
 
-struct Bag
+class Fraction
 {
-	bool isFool = 0;
-	int capacity = 10;
-	int total = 9;
+public:
+	Fraction() {};
+	Fraction(int _numerator, int _denominator) :numerator(_numerator), denominator(_denominator)
+	{
+		if (denominator == 0)
+		{
+			throw std::runtime_error("Error!");
+		}
+	}
+
+	double GetFraction()
+	{
+		return static_cast<double>(numerator) / denominator;
+	}
+
+private:
+	int numerator = 0, denominator = 0;
 };
-
-void Human::Speak()
-{
-	cout << "Bla bla bla\n";
-}
-
-bool BagOfHuman(Bag* bag)
-{
-	bag->total++;
-	bag->total == bag->capacity ? bag->isFool = 1 : bag->isFool = 0;
-	return &bag->isFool;
-}
 
 int main()
 {
 	setlocale(0, "");
 
-	cout << "Салам!\n\n";
+	cout << "Enter 2 numbers.\n";
+	int n, d;
+	cin >> n; // проверка на ввод валидных значений
+	cin >> d;
 
-	Human a;
-	
-	a.Speak();
-	a.GetInfo();
+	try
+	{
+		Fraction f(n, d);
+		cout << "Result of division is " << f.GetFraction() << "\n";
+	}
+	catch(std::runtime_error &ex)
+	{
+		cout << "Execption was catched!\n";
+		cerr << ex.what() << "\n";
+	}
 
-	Bag b;
-	BagOfHuman(&b);
-
-	MyClass m;
-	
-
-	cout << "\nВаалейкум!!!\n";
 
 	return 0;
 }
