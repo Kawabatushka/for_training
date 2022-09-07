@@ -1,34 +1,50 @@
 ﻿#include<iostream>
+#include <string>
+#include <stdexcept>
 
 using namespace std;
 
-class Human
+class Fraction
 {
 public:
-	Human(string _name, int _weight, int _high)
+	Fraction() {};
+	Fraction(int _numerator, int _denominator) :numerator(_numerator), denominator(_denominator)
 	{
-		this->name = _name;
-		this->weight = _weight;
-		this->high = _high;
+		if (denominator == 0)
+		{
+			throw std::runtime_error("Error!");
+		}
 	}
 
-	void Speak();
+	double GetFraction()
+	{
+		return static_cast<double>(numerator) / denominator;
+	}
 
 private:
-	string name;
-	int weight, high;
+	int numerator = 0, denominator = 0;
 };
-
-void Human::Speak()
-{
-	cout << "Bla bla bla\n";
-}
 
 int main()
 {
 	setlocale(0, "");
 
-	cout << "Салам\n";
+	cout << "Enter 2 numbers.\n";
+	int n, d;
+	cin >> n; // проверка на ввод валидных значений
+	cin >> d;
+
+	try
+	{
+		Fraction f(n, d);
+		cout << "Result of division is " << f.GetFraction() << "\n";
+	}
+	catch (std::runtime_error& ex)
+	{
+		cout << "Execption was catched!\n";
+		cerr << ex.what() << "\n";
+	}
+
 
 	return 0;
 }
